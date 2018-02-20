@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDMU SPEES</title>
+</head>
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="w3mobile.css">
+<style>
+  .search-container {
+    float: right;
+
+  }
+</style>
+
+<body>
+  <!--Top Navigation -->
+  <div style="overflow:auto">
+    <!--Header of the Main Menu -->
+    <div class="w3-header topnav w3-teal w3-mobile w3-top" style="position:fixed;top:0;">
+      <div class="topnav-icon w3-sidebar w3-bar-block w3-teal w3-animate-left w3-left" style="display:none;z-index:4" id="mySidebar">
+        <input type="button" class="w3-button w3-block w3-mobile w3-hoverable" id="evaluate" onclick="Open('Evaluate'),w3_close()"
+          value="Evaluator">
+        <input type="button" class="w3-button w3-block w3-mobile w3-hoverable" id="studadd" onclick="Open('StudentAdd'),w3_close()"
+          value="Add Student">
+        <input type="button" class="w3-button w3-block w3-mobile w3-hoverable" id="addSubjects" onclick="Open('SubjectAdd'),w3_close()"
+          value="Add Subject">
+        <input type="button" class="w3-button w3-block w3-mobile w3-hoverable" id="Grades" onclick="Open('GradeAdd'),w3_close()"
+          value="Grades">
+        <input type="button" id="appclose" class="w3-button w3-block w3-mobile w3-hoverable" onClick="Open('logout')"
+          value="Logout">
+        <input type="button" class="w3-button w3-block w3-mobile w3-teal w3-hoverable" style="bottom:0" onclick="w3_close()" value="Close">
+      </div>
+      <!-- Overlay -->
+      <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay">
+      </div>
+      <!-- Page content -->
+      <button class="w3-button w3-large " onclick="w3_open()">&#9776;</button>
+      <button class="w3-button w3-large w3-hover-opacity w3-hover-green" onclick="Open('Home')">
+        <i class="fa fa-home"></i> Home</button>
+      <input type="button" class="w3-button w3-large w3-hover-opacity" onclick="Open('Profile')" id="profile" value="Student Lists">
+      <input type="button" class="w3-button w3-large w3-hover-opacity" onclick="Open('Subjects')" id="subject" value="Subject List">
+
+      <input type="button" class="w3-button w3-large w3-hover-opacity" onclick="Open('Curriculum')" id="curriculum" value="Curriculum">
+      <button class="w3-button" style="float:right">
+        <i class="fa fa-user w3-xlarge"></i>
+      </button>
+      <text id="dateToday" style="float:right" class="w3-large w3-button"></text>
+    </div>
+  <div class="w3-bottom">
+
+  </div>
+  <div id="StudentAdd" class='content' style="display:none">
+    <br/>
+    <center>
+    <h2>Add Student</h2>
+    <form class="w3-center" style="width:50%">
+      <input type="text" class="w3-input" placeholder="Student ID" id="studentid" required>
+      <input type="text" class="w3-input" placeholder="First Name" id="firstname" required>
+      <input type="text" class="w3-input" placeholder="Last Name" id="lastname" required>
+      <input type="text" class="w3-input" placeholder="MI" id="MI" required>
+      <select class="w3-select inputText" name="option" id="yearlevel" required>
+        <option selected disabled>Year Level</option>
+        <option value="1st Year">1st Year</option>
+        <option value="2nd Year">2nd Year</option>
+        <option value="3rd Year">3rd Year</option>
+        <option value="4th Year">4th Year</option>
+      </select>
+      <br/>
+      <!--Disable this Combobox-->
+      <!--Dropdown Box for CourseCode and will be displayed as CourseDescription-->
+      <select class="w3-select  inputText" name="option" id="course" required>
+        <option value="" disabled selected>Course</option>
+        <option value="BSIT" id="course">BSIT</option>
+        <option value="BSCS" id="course">BSCS</option>
+        <option value="BLIS" id="course">BLIS</option>
+      </select>
+      <input type="button" value="Add Student" class="w3-btn w3-green" id="addStudent" onclick="myFunction()">
+      <input type="button" value="Update Student" class="w3-btn w3-yellow" id="UpdateStudent">
+      <input type="button" value="Delete Student" class="w3-btn w3-red" id="DeleteStudent">
+    </center>
+    </form>
+    <br/>
+
+
+  </div>
+
+  <div id="Profile" class="content" style="display:none">
+    <input oninput="w3.filterHTML('#StudentList','.item',this.value)" type="text" placeholder="Search Student" class="w3-input w3-right-aligned w3-col s6"
+      style="width: 50%">
+    <table class="w3-striped w3-table w3-animate-left" id="StudentList">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>MI</th>
+          <th>Course</th>
+          <th>Year Level</th>
+        </tr>
+      </thead>
+      <tbody id="tablebody">
+      </tbody>
+    </table>
+  </div>
+
+  <div id='Evaluate' class='content' style="display:none">
+
+    <h2 id="evalcontent">Welcome!</h2>
+    <div class="w3-bar-block " style="width:15%">
+
+    </div>
+  </div>
+
+  <div id='Subjects' class='content' style="display:none">
+    <div>
+      <input oninput="w3.filterHTML('#SubjectItems','.item',this.value)" type="text" placeholder="Search Subject" class="w3-input w3-right-aligned w3-col s6"
+        style="width: 50%">
+
+    </div>
+    <table id="SubjectItems" class="w3-table w3-striped w3-animate-left">
+      <thead>
+        <tr>
+          <th>Subject Code</th>
+          <th>Subject Description</th>
+          <th>Units</th>
+          <th>Lec Units</th>
+          <th>Lab Units</th>
+          <th>Prerequisite</th>
+        </tr>
+      </thead>
+      <tbody id='subjectbody'>
+      </tbody>
+    </table>
+    <div id="addContent"></div>
+    <div class="w3-container w3-teal w3-bottom w3-center">
+
+      <div class="w3-bar">
+        <input type="button" class="w3-bar-item  w3-button w3-animate-opacity" value="Go to Subject Form to Update Subjects">
+      </div>
+    </div>
+  </div>
+
+  <div id="SubjectAdd" class='content' style="display:none">
+    <br/>
+    
+    <center>
+        <h2>Add Subject</h2>
+    <form style="width:50%">
+      
+      <input type="text" class="w3-input" placeholder="SubjectCode" id="subjectcode" required>
+      <input type="text" class="w3-input" placeholder="Subject Description" id="subjectdesc" required>
+      <input type="text" class="w3-input" placeholder="Prerequisite" id="prerequisite" required>
+      <input type="number" class="w3-input" placeholder="Credit Units" id="creditUnits">
+      <input type="number" class="w3-input" placeholder="Lecture Units" id="lecUnits">
+      <input type="number" class="w3-input" placeholder="Lab Units" id="labUnits">
+      <select class="w3-select" name="option" id="SubjectType">
+        <option selected disabled>Assign Semester</option>
+        <option value="1st Semester">1st Semester</option>
+        <option value="2nd Semester">2nd Semester</option>
+      </select>
+      <select class="w3-select" name="option" id="YearLevel">
+        <option selected disabled>Choose Year Level</option>
+        <option value="1st Year">1st Year</option>
+        <option value="2nd Year">2nd Year</option>
+        <option value="3rd Year">3rd Year</option>
+        <option value="4th Year">4th Year</option>
+      </select>
+      <input type="button" value="Add Subject" class="w3-button w3-green" id="addSubjectNow">
+      <input type="button" value="Update Subject" class="w3-button w3-yellow" id="updateSubjectNow">
+    
+    </form>
+  </center>
+  </div>
+  <div id="GradeAdd" class="content w3-row" style="display:none">
+    <br/>
+    <br/>
+    <div>
+      <input oninput="w3.filterHTML('#GradeItems','.item',this.value)" type="text" placeholder="Search Student" class="w3-input w3-right-aligned w3-col s6"
+        style="width: 50%" id="studsearch">
+    </div>
+    <div class="w3-col s6">
+      <select class="w3-select" id="semester">
+
+        <option value="1st Semester" selected>1st Semester</option>
+        <option value="2nd Semester">2nd Semester</option>
+      </select>
+    </div>
+    <div class="w3-col s6">
+      <input type="button" class="w3-button" value="Search">
+    </div>
+    <table id="GradeItems" class="w3-table w3-striped w3-card-4  w3-animate-left ">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+        </tr>
+      </thead>
+      <tbody id="GradeList">
+      </tbody>
+    </table>
+  </div>
+  <center>
+    <br/>
+    <div id="Curriculum" class='content' style="display:none">
+      <section style="width:50%">
+        <h2 class="w3-center">Curriculum</h2>
+        <form>
+          <input type="text" class="w3-input" placeholder="CurriculumCode" id="curCode">
+          <input type="date" class="w3-input" placeholder="Effetive Date" id="dateEffective">
+          <input type="date" class="w3-input" placeholder="End Date" id="endDate">
+          <select class="w3-select" name="option" id="CourseCode">
+            <option value="BSIT">BSIT</option>
+            <option value="BSCS">BSCS</option>
+            <option value="BLIS">BLIS</option>
+          </select>
+          <input type="button" class="w3-button w3-green" placeholder="Add Curriculum" id="addCurriculum" value="Add curriculum">
+          <input type="button" class="w3-button w3-yellow" placeholder="Update Curriculum" id="updCurriculum" value="Update Curriculum">
+        </form>
+      </section>
+      <section>
+        <div>
+          <table class="w3-table w3-stripe w3-animate-opacity">
+            <thead>
+              <tr>
+                <th>Curriculum Code</th>
+                <th>Course Code</th>
+                <th>Course Description</th>
+                <th>Effective Date</th>
+                <th>End Date</th>
+              </tr>
+            </thead>
+            <tbody id="curtable">
+              <br/>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </center>
+  </div>
+  <div id="Home" class='content' style="display:block">
+    <div>
+      <br/>
+      <div id="EvaluatorName">
+        <h2>Welcome Admin!</h2>
+      </div>
+      <div class="w3-card-4">
+        <button class="w3-button w3-left w3-animate-opacity">
+          <header class="w3-container w3-yellow">
+
+            <h3>Student</h3>
+          </header>
+          <div class="w3-container">
+            <p>Go to Student Form</p>
+            <img src="resources/reading.png" alt="See Student Information">
+          </div>
+        </button>
+        <button class="w3-button w3-left w3-animate-opacity">
+          <header class="w3-container w3-green">
+
+            <h3>Subjects</h3>
+          </header>
+          <div class="w3-container">
+            <p>Go to Subjects Form</p>
+            <img src="resources/open-book.png" alt="See Grade Form Information">
+          </div>
+        </button>
+        <button class="w3-button w3-left w3-animate-opacity">
+          <header class="w3-container w3-teal">
+
+            <h3>Grades</h3>
+          </header>
+          <div class="w3-container">
+            <p>Go to Grade Form</p>
+            <img src="resources/checklist.png" alt="See Student Information">
+          </div>
+        </button>
+        <button class="w3-button w3-left w3-animate-opacity">
+            <header class="w3-container w3-black">
+  
+              <h3>Evaluator</h3>
+            </header>
+            <div class="w3-container">
+              <p>Go to Evaluator Form</p>
+              <img src="resources/multiple-users-silhouette.png" alt="See Student Information">
+            </div>
+          </button>
+      </div>
+      
+ </div>
+ </div>
+
+      <!-- JS to open and close sidebar with overlay effect -->
+      <script>
+        var myVar = setInterval(function () { myTimer() }, 1000);
+        function myTimer() {
+          var today = new Date();
+          document.getElementById('dateToday').innerHTML = today.toDateString() + " " + today.toLocaleTimeString();
+        }
+        function w3_open() {
+          document.getElementById("mySidebar").style.display = "block";
+          document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function w3_close() {
+          document.getElementById("mySidebar").style.display = "none";
+          document.getElementById("myOverlay").style.display = "none";
+        }
+        //Open the Content of a clicked tab
+        function Open(datName) {
+          var i;
+          var x = document.getElementsByClassName("content")
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+          }
+          document.getElementById(datName).style.display = "block";
+        }
+        function myFunction() {
+          var x = document.getElementById("snackbar");
+
+          x.className = "show";
+          // After 3 seconds, remove the show class from DIV
+          setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+        }
+      </script>
+      <script src="js/grade.js"></script>
+      <script src="js/mysql.js"></script>
+      <script src="js/evaluator.js"></script>
+      <script src="js/menu.js"></script>
+      <script src="js/w3.js"></script>
+      <script src="renderer.js"></script>
+      <!--  <script src="js/subject.js"></script>-->
+
+
+      <script>
+        // You can also require other files to run in this process
+        require('./renderer.js')
+      </script>
+</body>
+
+</html>

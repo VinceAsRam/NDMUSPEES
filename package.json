@@ -1,0 +1,42 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "Student Pre-Evaluation and Enrollment System",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "build --dir"
+  },
+  "build": {
+    "appId": "com.ndmu.spees.electron-quick-start",
+    "productName": "NDMU SPEES"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.7.8",
+    "electron-winstaller": "^2.6.4"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.0.0",
+    "electron-pdf-window": "^1.0.12",
+    "electron-reload": "^1.2.2",
+    "jquery": "^3.3.1",
+    "mongodb": "^3.0.1",
+    "mssql": "^4.1.0",
+    "mysql": "^2.15.0",
+    "nedb": "^1.8.0",
+    "node-notifier": "^5.2.1",
+    "rxdb": "^7.3.2",
+    "rxjs": "^5.5.6"
+  }
+}
