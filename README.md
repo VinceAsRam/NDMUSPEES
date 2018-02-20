@@ -1,4 +1,4 @@
-# electron-quick-start
+# Notre Dame of Marbel University Student Pre-Evaluation and Enrollment System
 
 **Clone and run for a quick way to see Electron in action.**
 
